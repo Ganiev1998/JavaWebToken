@@ -36,12 +36,7 @@ public class Filter1 extends OncePerRequestFilter {
         if (token.isPresent()) {
 
             DecodedJWT decode = jwtService.decode(String.valueOf(token));
-            PrincipleUser user = userService.getById(Long.valueOf(jwtService.decode(token.get().substring(7)).getSubject()));
-//            PrincipleUser user = PrincipleUser.builder()
-//                    .id(decode.getClaim("id").asLong())
-//                    .username(decode.getClaim("username").asString())
-//                    .roles(getRolesFromToken(decode))
-//                    .build();
+            PrincipleUser user = userService.getById(Long.valueOf(jwtService.decode(token.get()).getSubject()));
 
             SecurityContextHolder.getContext().setAuthentication(new UserTokenAuth(user));
         }
@@ -56,10 +51,10 @@ public class Filter1 extends OncePerRequestFilter {
         return Optional.empty();
     }
 
-    private List<Roles> getRolesFromToken(DecodedJWT decodedJWT) {
-        List<String> roles = decodedJWT.getClaim("role").asList(String.class);
-        roles.stream().forEach(System.out::println);
-        return roles.stream().map(RoleName::valueOf)
-                .map(Roles::new).toList();
-    }
+//    private List<Roles> getRolesFromToken(DecodedJWT decodedJWT) {
+//        List<String> roles = decodedJWT.getClaim("role").asList(String.class);
+//        roles.stream().forEach(System.out::println);
+//        return roles.stream().map(RoleName::valueOf)
+//                .map(Roles::new).toList();
+//    }
 }

@@ -20,7 +20,7 @@ public class MyController {
         return service.login(dto);
     }
     @PostMapping("/register")
-    public RegisterResponseDTO register(@RequestBody RegisterRequestDTO dto){
+    public String register(@RequestBody RegisterRequestDTO dto){
         return service.register(dto);
     }
     @PostMapping("verify/{uuid}")

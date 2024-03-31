@@ -26,12 +26,11 @@ public class PrincipleUser implements UserDetails {
     private Long id;
     private String username;
     private String password;
-
+    private boolean active;
     private List<Roles> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-       // return authorities;
         return roles
                 .stream()
                 .map(role -> new SimpleGrantedAuthority(role.getRole().name())).collect(Collectors.toList());

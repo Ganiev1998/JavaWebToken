@@ -32,8 +32,8 @@ public class SecurityConfig {
                 .securityMatcher("/**")
                 .authorizeHttpRequests(register ->
                         register.requestMatchers("/auth/**").permitAll()
-                                .requestMatchers("/user/admin").hasAuthority("ROLE_USER")
-                                .requestMatchers("/user/user").hasAuthority("ROLE_USER")
+                                .requestMatchers("/user/admin").hasRole("ROLE_USER")
+                                .requestMatchers("/user/user").hasRole("ROLE_USER")
                                 .anyRequest().authenticated()
                 );
         return security.build();
