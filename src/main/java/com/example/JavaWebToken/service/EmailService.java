@@ -1,25 +1,14 @@
 package com.example.JavaWebToken.service;
 
-import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.mail.SimpleMailMessage;
-import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.stereotype.Service;
+/**
+ * @description: TODO
+ * @date: 29 March 2024 $
+ * @time: 8:05 PM 29 $
+ * @author: Qudratjon Komilov
+ */
 
-@Service
-@RequiredArgsConstructor
-public class EmailService {
-    @Value("${spring.mail.username}")
-    private String fromEmail;
+public interface EmailService {
 
-    private final JavaMailSender javaMailSender;
+    void sendSimpleMessage(String to, String subject, String text);
 
-    public void sendSimpleMessage(String to, String subject, String text) {
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom(fromEmail);
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(text);
-        javaMailSender.send(message);
-    }
 }

@@ -34,6 +34,7 @@ public class SecurityConfig {
                         register.requestMatchers("/auth/**").permitAll()
                                 .requestMatchers("/user/admin").hasRole("ROLE_USER")
                                 .requestMatchers("/user/user").hasRole("ROLE_USER")
+                                .requestMatchers("/attachment/upload").hasRole("ROLE_USER")
                                 .anyRequest().authenticated()
                 );
         return security.build();

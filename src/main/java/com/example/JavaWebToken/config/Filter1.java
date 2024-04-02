@@ -28,15 +28,15 @@ public class Filter1 extends OncePerRequestFilter {
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
         log.info("i am working");
-        request.getHeaderNames().asIterator().forEachRemaining(hederName -> {
-            log.info("{},{}", hederName, request.getHeader(hederName));
-        });
+//        request.getHeaderNames().asIterator().forEachRemaining(hederName -> {
+//            log.info("{},{}", hederName, request.getHeader(hederName));
+//        });
 //      requestdan token olinib decode qilinib principleuserga map qilinib contextga beriladi
         Optional<String> token = getTokenFromRequest(request);
         if (token.isPresent()) {
 
-            DecodedJWT decode = jwtService.decode(String.valueOf(token));
-            PrincipleUser user = userService.getById(Long.valueOf(jwtService.decode(token.get()).getSubject()));
+            DecodedJWT decode = jwtService.decode(token.get());
+            PrincipleUser user = userService.getUserById(Long.valueOf(decode.getSubject()));
 
             SecurityContextHolder.getContext().setAuthentication(new UserTokenAuth(user));
         }
@@ -50,11 +50,4 @@ public class Filter1 extends OncePerRequestFilter {
         }
         return Optional.empty();
     }
-
-//    private List<Roles> getRolesFromToken(DecodedJWT decodedJWT) {
-//        List<String> roles = decodedJWT.getClaim("role").asList(String.class);
-//        roles.stream().forEach(System.out::println);
-//        return roles.stream().map(RoleName::valueOf)
-//                .map(Roles::new).toList();
-//    }
 }

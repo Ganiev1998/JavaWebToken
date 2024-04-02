@@ -17,5 +17,4 @@ import java.util.UUID;
 public class LoginRequestDTO {
     private String username;
     private String password;
-    private String uuid;
 }

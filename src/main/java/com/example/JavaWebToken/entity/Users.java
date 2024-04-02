@@ -1,5 +1,6 @@
 package com.example.JavaWebToken.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,9 +16,13 @@ public class Users {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(unique = true)
     private String username;
     private String password;
-    private boolean active;
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Roles> role;
+    private boolean active = true;
+    @OneToMany(mappedBy = "users")
+    @JsonIgnore
+    private List<Attachment> attachments;
 }
